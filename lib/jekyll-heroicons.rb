@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "heroicons/version"
+require_relative "jekyll-heroicons/version"
 
 module Jekyll
   module Heroicons

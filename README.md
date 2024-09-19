@@ -25,8 +25,23 @@ This is heavily inspired by https://github.com/jclusso/heroicons
   ```
 
 ## Usage
+Configure default settings in `_config.yml`:
+
+```ruby
+heroicons:
+  variant: 'solid'
+  default_class: {
+    solid: "size-6",
+    outline: "size-6",
+    mini: "size-5",
+    micro: "size-4"
+  }
 ```
-{% heroicon alert height:32 class:"right left" aria-label:hi %}
+
+And then you can use:
+
+```liquid
+{% heroicon alert class:"right left" %}
 ```
 
 ## Development
