@@ -30,18 +30,19 @@ Configure default settings in `_config.yml`:
 ```ruby
 heroicons:
   variant: 'solid'
-  default_class: {
-    solid: "size-6",
-    outline: "size-6",
-    mini: "size-5",
-    micro: "size-4"
-  }
 ```
 
 And then you can use:
 
 ```liquid
 {% heroicon alert class:"right left" %}
+```
+
+Another way to provide variant would be like so:
+```liquid
+{% heroicon solid/alert class:"right left"%}
+# or
+{% heroicon alert variant: "solid" class:"right left"%}
 ```
 
 ## Development
