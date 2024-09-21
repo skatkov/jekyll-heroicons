@@ -12,8 +12,8 @@ class JekyllHeroiconsTest < Minitest::Test
     expected_content = File.read(File.expand_path("../icons/solid/arrow-up.svg", __dir__))
     assert_equal expected_content, output
 
-    output = render("{% heroicon solid/arrow-down %}")
-    expected_content = File.read(File.expand_path("../icons/solid/arrow-down.svg", __dir__))
+    output = render("{% heroicon outline/arrow-down %}")
+    expected_content = File.read(File.expand_path("../icons/outline/arrow-down.svg", __dir__))
 
     assert_equal expected_content, output
   end
