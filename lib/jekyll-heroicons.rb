@@ -24,13 +24,6 @@ module Jekyll
       super
       @markup = markup
 
-      @symbol = symbol(markup)
-      @variant  = if (match = markup.split('/')).length > 1
-                    match.first
-                  else
-                    'solid'
-                  end
-
       # If there's interpolation going on, we need to do this in render
       prepare(markup) unless markup.match(Variable)
     end
@@ -48,6 +41,11 @@ module Jekyll
     def prepare(markup)
       @symbol = symbol(markup)
       @options = string_to_hash(markup)
+      @variant = if (match = markup.split('/')).length > 1
+                   match.first
+                 elsif @options.key?(:variant)
+                   @options[:variant]
+                 end
     end
 
     def interpolate(markup, context)
