@@ -5,6 +5,6 @@ module Liquid; class Tag; end; end
 
 module Jekyll
   class Heroicons < Liquid::Tag
-    VERSION = "0.1.0"
+    VERSION = "0.1.1"
   end
 end
