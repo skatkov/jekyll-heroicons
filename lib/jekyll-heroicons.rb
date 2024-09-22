@@ -1,39 +1,44 @@
 # frozen_string_literal: true
 
-require_relative 'jekyll-heroicons/version'
-require 'liquid'
-require 'jekyll/liquid_extensions'
+require_relative "jekyll-heroicons/version"
+require_relative "jekyll-heroicons/icon"
+require "liquid"
+require "jekyll/liquid_extensions"
 
 module Jekyll
   class Heroicons < Liquid::Tag
     include Jekyll::LiquidExtensions
 
+    def self.root
+      File.dirname(__dir__)
+    end
+
     # Syntax for the heroicon symbol
-    Syntax = /\A(#{Liquid::VariableSignature}+)/
+    SYNTAX = /\A(#{Liquid::VariableSignature}+)/
 
     # For interpolation, look for liquid variables
-    Variable = /\{\{\s*([\w]+\.?[\w]*)\s*\}\}/i
+    VARIABLE = /\{\{\s*([\w]+\.?[\w]*)\s*\}\}/i
 
     # Copied from Liquid::TagAttributes to allow dashes in tag names:
     #
     #   {% heroicon alert area-label:"Hello World!" %}
     #
-    TagAttributes = /([\w-]+)\s*\:\s*(#{Liquid::QuotedFragment})/o
+    TAG_ATTRIBUTES = /([\w-]+)\s*:\s*(#{Liquid::QuotedFragment})/o
 
     def initialize(tag_name, markup, options)
       super
       @markup = markup
 
       # If there's interpolation going on, we need to do this in render
-      prepare(markup) unless markup.match(Variable)
+      prepare(markup) unless markup.match(VARIABLE)
     end
 
     def render(context)
-      prepare(interpolate(@markup, context)) if @markup.match(Variable)
+      prepare(interpolate(@markup, context)) if @markup.match(VARIABLE)
 
       return nil if @symbol.nil?
 
-      File.read(File.expand_path("../icons/#{@variant}/#{@symbol}.svg", __dir__))
+      Icon.new(@symbol, @variant, @options.except(:variant)).raw
     end
 
     private
@@ -41,16 +46,16 @@ module Jekyll
     def prepare(markup)
       @symbol = symbol(markup)
       @options = string_to_hash(markup)
-      @variant = if (match = markup.split('/')).length > 1
-                   match.first
-                 elsif @options.key?(:variant)
-                   @options[:variant]
-                 end
+      @variant = if (match = markup.split("/")).length > 1
+        match.first
+      elsif @options.key?(:variant)
+        @options[:variant]
+      end
     end
 
     def interpolate(markup, context)
-      markup.scan Variable do |variable|
-        markup = markup.gsub(Variable, lookup_variable(context, variable.first))
+      markup.scan VARIABLE do |variable|
+        markup = markup.gsub(VARIABLE, lookup_variable(context, variable.first))
       end
       markup
     end
@@ -59,9 +64,9 @@ module Jekyll
     def string_to_hash(markup)
       options = {}
 
-      if markup.match(Syntax)
-        markup.scan(TagAttributes) do |key, value|
-          options[key.to_sym] = value.gsub(/\A"|"\z/, '')
+      if markup.match(SYNTAX)
+        markup.scan(TAG_ATTRIBUTES) do |key, value|
+          options[key.to_sym] = value.gsub(/\A"|"\z/, "")
         end
       end
 
@@ -69,13 +74,13 @@ module Jekyll
     end
 
     def symbol(markup)
-      if (match = markup.split('/')).length > 1
-        match[1].match(Syntax)
+      if (match = markup.split("/")).length > 1
+        match[1].match(SYNTAX)
       else
-        markup.match(Syntax)
+        markup.match(SYNTAX)
       end
     end
   end
 end
 
-Liquid::Template.register_tag('heroicon', Jekyll::Heroicons)
+Liquid::Template.register_tag("heroicon", Jekyll::Heroicons)
