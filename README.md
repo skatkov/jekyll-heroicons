@@ -35,14 +35,14 @@ heroicons:
 And then you can use:
 
 ```liquid
-{% heroicon alert class:"right left" %}
+{% heroicon bell class:"right left" %}
 ```
 
 Another way to provide variant would be like so:
 ```liquid
-{% heroicon solid/alert class:"right left"%}
+{% heroicon solid/bell class:"right left"%}
 # or
-{% heroicon alert variant: "solid" class:"right left"%}
+{% heroicon bell variant: "solid" class:"right left"%}
 ```
 
 ## Development
