@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'jekyll-heroicons/version'
+require_relative 'jekyll-heroicons/icon'
 require 'liquid'
 require 'jekyll/liquid_extensions'
 
@@ -37,7 +38,7 @@ module Jekyll
 
       return nil if @symbol.nil?
 
-      Icon.new(@symbol, @variant, @options).raw
+      Icon.new(@symbol, @variant, @options.except(:variant)).raw
     end
 
     private

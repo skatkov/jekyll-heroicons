@@ -16,7 +16,7 @@ module Jekyll
         prepend_default_classes
 
         @options.each do |key, value|
-          svg[key.to_s.dasherize] = value
+          svg[key.to_s] = value
         end
 
         doc
@@ -25,7 +25,11 @@ module Jekyll
       private
 
       def prepend_default_classes
-        @options[:class] = 'size-6'
+        if @options[:class]
+          @options[:class] += ' size-6'
+        else
+          @options[:class] = 'size-6'
+        end
       end
 
       def file
