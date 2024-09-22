@@ -28,7 +28,7 @@ class JekyllHeroiconsTest < Minitest::Test
     doc = Nokogiri::HTML::DocumentFragment.parse(svg_content)
     svg = doc.at_css "svg"
     svg[:class] = "size-6"
-    doc.to_s
+    doc.to_html.strip
   end
 
   def test_render_nothing

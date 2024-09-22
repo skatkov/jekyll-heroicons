@@ -19,7 +19,7 @@ module Jekyll
           svg[key.to_s] = value
         end
 
-        doc
+        doc.to_html.strip
       end
 
       private
