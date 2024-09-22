@@ -8,6 +8,10 @@ module Jekyll
   class Heroicons < Liquid::Tag
     include Jekyll::LiquidExtensions
 
+    def self.root
+      File.dirname(__dir__)
+    end
+
     # Syntax for the heroicon symbol
     Syntax = /\A(#{Liquid::VariableSignature}+)/
 
@@ -33,7 +37,7 @@ module Jekyll
 
       return nil if @symbol.nil?
 
-      File.read(File.expand_path("../icons/#{@variant}/#{@symbol}.svg", __dir__))
+      Icon.new(@symbol, @variant, @options).raw
     end
 
     private

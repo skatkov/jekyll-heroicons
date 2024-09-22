@@ -30,6 +30,12 @@ Configure default settings in `_config.yml`:
 ```ruby
 heroicons:
   variant: 'solid'
+  default_class: {
+    solid: "size-6",
+    outline: "size-6",
+    mini: "size-5",
+    micro: "size-4",
+  }
 ```
 
 And then you can use:
