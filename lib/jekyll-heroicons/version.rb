@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#prevent bundler errors
+# prevent bundler errors
 module Liquid; class Tag; end; end
 
 module Jekyll

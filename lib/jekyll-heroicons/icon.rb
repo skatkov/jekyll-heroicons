@@ -1,4 +1,4 @@
-require 'nokogiri'
+require "nokogiri"
 
 module Jekyll
   class Heroicons < Liquid::Tag
@@ -26,9 +26,9 @@ module Jekyll
 
       def prepend_default_classes
         if @options[:class]
-          @options[:class] += ' size-6'
+          @options[:class] += " size-6"
         else
-          @options[:class] = 'size-6'
+          @options[:class] = "size-6"
         end
       end
 
