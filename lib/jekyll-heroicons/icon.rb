@@ -13,24 +13,14 @@ module Jekyll
         doc = Nokogiri::HTML::DocumentFragment.parse(file)
         svg = doc.at_css "svg"
 
-        prepend_default_classes
-
         @options.each do |key, value|
           svg[key.to_s] = value
         end
 
-        doc.to_html.strip
+        doc.to_html(save_with: 0).delete("\n")
       end
 
       private
-
-      def prepend_default_classes
-        if @options[:class]
-          @options[:class] += " size-6"
-        else
-          @options[:class] = "size-6"
-        end
-      end
 
       def file
         @file ||= File.read(file_path).force_encoding("UTF-8")
