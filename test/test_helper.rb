@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
+require "jekyll"
 require "jekyll-heroicons"
 require "minitest/autorun"
+
+Jekyll.logger.log_level = :error
 
 # Parse a string into a liquid template
 def parse(string)

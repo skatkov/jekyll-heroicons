@@ -7,6 +7,30 @@ class JekyllHeroiconsTest < Minitest::Test
     refute_nil ::Jekyll::Heroicons::VERSION
   end
 
+  def test_config_defaults
+    config = Jekyll.configuration(Jekyll::Utils.deep_merge_hashes(
+      {
+        "name" => "heroicons",
+        "url" => "http://example.org",
+        "heroicons" => {
+        "variant" => 'mini',
+        "default_class" => {
+          "solid" => "size-6",
+          "outline" => "size-6",
+          "mini" => "size-5",
+          "micro" => "size-4",
+        }
+      }}, {}))
+    site = Jekyll::Site.new(config)
+    context = Liquid::Context.new({}, {}, { site: site })
+    result = Liquid::Template.parse("{% heroicon arrow-up %}").render!(context, {})
+
+    binding.irb
+  end
+
+  def test_disabled_default_classes
+  end
+
   def test_render
     output = render("{% heroicon solid/arrow-up %}")
     expected_content = File.read(File.expand_path("../icons/solid/arrow-up.svg", __dir__))
