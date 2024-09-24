@@ -1,5 +1,7 @@
 # Jekyll-Heroicons
 
+## 0.3.0
+- We can define in _config.yml default variant and default classes for each variant.
 ## 0.2.1
 - Remove new line character from icon raw code.
 ## 0.2.0
