@@ -1,10 +1,36 @@
 # frozen_string_literal: true
 
 require_relative "test_helper"
+require 'jekyll'
 
 class JekyllHeroiconsTest < Minitest::Test
   def test_that_it_has_a_version_number
     refute_nil ::Jekyll::Heroicons::VERSION
+  end
+
+  def test_with_configuration
+    site = Jekyll::Site.new(Jekyll.configuration({
+      "heroicons" => {
+        "variant" => "mini",
+        "default_class" => {
+          "solid" => "size-6",
+          "outline" => "size-6",
+          "mini" => "size-5",
+          "micro" => "size-4"
+        }
+      }
+    }))
+
+    content = "{% heroicon arrow-up %}"
+    template = Liquid::Template.parse(content)
+    context = Liquid::Context.new({}, {}, { site: site })
+    output = template.render(context)
+    expected_content = File.read(File.expand_path("../icons/solid/arrow-up.svg", __dir__))
+
+    assert_equal append_default_classes(expected_content), output
+  end
+
+  def test_disable_default_classes
   end
 
   def test_render

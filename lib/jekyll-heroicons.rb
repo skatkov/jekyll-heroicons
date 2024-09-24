@@ -45,7 +45,7 @@ module Jekyll
 
     def config
       @config ||= begin
-        Jekyll.configuration.dig("heroicons")
+        Jekyll.configuration.fetch("heroicons", {})
       rescue NoMethodError
         {}
       end
