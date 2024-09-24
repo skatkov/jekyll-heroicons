@@ -17,7 +17,7 @@ module Jekyll
     SYNTAX = /\A(#{Liquid::VariableSignature}+)/
 
     # For interpolation, look for liquid variables
-    VARIABLE = /\{\{\s*([\w]+\.?[\w]*)\s*\}\}/i
+    VARIABLE = /\{\{\s*(\w+\.?\w*)\s*\}\}/i
 
     # Copied from Liquid::TagAttributes to allow dashes in tag names:
     #
@@ -43,13 +43,36 @@ module Jekyll
 
     private
 
+    def config
+      return {} unless defined?(context) && context.registers[:site]
+
+      context.registers[:site].config["heroicons"]
+    end
+
     def prepare(markup)
       @symbol = symbol(markup)
       @options = string_to_hash(markup)
-      @variant = if (match = markup.split("/")).length > 1
+      @variant = variant(markup)
+      prepend_default_classes
+    end
+
+    def variant(markup)
+      if (match = markup.split("/")).length > 1
         match.first
       elsif @options.key?(:variant)
         @options[:variant]
+      else
+        config["variant"]
+      end
+    end
+
+    def prepend_default_classes
+      return unless config.dig("default_class", @variant)
+
+      if @options[:class]
+        @options[:class] += " #{config.dig("default_class", @variant)}"
+      else
+        @options[:class] = config.dig("default_class", @variant)
       end
     end
 
