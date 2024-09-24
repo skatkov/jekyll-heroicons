@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jekyll-heroicons (0.3.0)
+    jekyll-heroicons (0.3.1)
       jekyll
       nokogiri
 

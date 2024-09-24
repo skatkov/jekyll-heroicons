@@ -44,9 +44,11 @@ module Jekyll
     private
 
     def config
-      return {} unless defined?(context) && context.registers[:site]
-
-      context.registers[:site].config["heroicons"]
+      @config ||= begin
+        Jekyll.configuration.dig("heroicons")
+      rescue NoMethodError
+        {}
+      end
     end
 
     def prepare(markup)

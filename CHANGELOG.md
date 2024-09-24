@@ -1,5 +1,7 @@
 # Jekyll-Heroicons
 
+## 0.3.1
+- Fix Site.configuration retrieval.
 ## 0.3.0
 - We can define in _config.yml default variant and default classes for each variant.
 ## 0.2.1
