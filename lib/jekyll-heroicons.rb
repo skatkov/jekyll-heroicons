@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "jekyll-heroicons/version"
-require_relative "jekyll-heroicons/icon"
-require "liquid"
-require "jekyll/liquid_extensions"
+require_relative 'jekyll-heroicons/version'
+require_relative 'jekyll-heroicons/icon'
+require 'liquid'
+require 'jekyll/liquid_extensions'
 
 module Jekyll
   class Heroicons < Liquid::Tag
@@ -44,7 +44,9 @@ module Jekyll
     private
 
     def config
-      context.registers[:site].config["heroicons"]
+      return {} unless defined?(context) && context.registers[:site]
+
+      context.registers[:site].config['heroicons']
     end
 
     def prepare(markup)
@@ -55,22 +57,22 @@ module Jekyll
     end
 
     def variant(markup)
-      if (match = markup.split("/")).length > 1
+      if (match = markup.split('/')).length > 1
         match.first
       elsif @options.key?(:variant)
         @options[:variant]
       else
-        config["variant"]
+        config['variant']
       end
     end
 
     def prepend_default_classes
-      return unless config.dig("default_class", @variant)
+      return unless config.dig('default_class', @variant)
 
       if @options[:class]
-        @options[:class] += " #{config.dig("default_class", @variant)}"
+        @options[:class] += " #{config.dig('default_class', @variant)}"
       else
-        @options[:class] = config.dig("default_class", @variant)
+        @options[:class] = config.dig('default_class', @variant)
       end
     end
 
@@ -87,7 +89,7 @@ module Jekyll
 
       if markup.match(SYNTAX)
         markup.scan(TAG_ATTRIBUTES) do |key, value|
-          options[key.to_sym] = value.gsub(/\A"|"\z/, "")
+          options[key.to_sym] = value.gsub(/\A"|"\z/, '')
         end
       end
 
@@ -95,7 +97,7 @@ module Jekyll
     end
 
     def symbol(markup)
-      if (match = markup.split("/")).length > 1
+      if (match = markup.split('/')).length > 1
         match[1].match(SYNTAX)
       else
         markup.match(SYNTAX)
@@ -104,4 +106,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag("heroicon", Jekyll::Heroicons)
+Liquid::Template.register_tag('heroicon', Jekyll::Heroicons)
