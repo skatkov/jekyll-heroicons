@@ -38,7 +38,7 @@ module Jekyll
 
       return nil if @symbol.nil?
 
-      Icon.new(@symbol, @variant, @options.except(:variant)).raw
+      Icon.new(@symbol, @variant, @options.except(:variant, :disable_default_class)).raw
     end
 
     private
@@ -59,16 +59,17 @@ module Jekyll
     end
 
     def variant(markup)
-      if (match = markup.split("/")).length > 1
-        match.first
-      elsif @options.key?(:variant)
+      if @options.key?(:variant)
         @options[:variant]
-      else
+      elsif config["variant"]
         config["variant"]
+      else
+        "solid"
       end
     end
 
     def prepend_default_classes
+      return if @options[:disable_default_class].eql?('true')
       return unless config.dig("default_class", @variant)
 
       if @options[:class]

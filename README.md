@@ -25,7 +25,34 @@ This is heavily inspired by https://github.com/jclusso/heroicons
   ```
 
 ## Usage
-Configure default settings in `_config.yml`:
+```liquid
+{% heroicon bell %}
+```
+Heroicons comes in 4 variants: `solid`, `outline`, `mini`, and `micro`. The default variant is `solid`.
+This can be changed through configuration in `_config.yml`:
+
+```ruby
+heroicons:
+  variant: 'solid'
+```
+
+Another way to provide variant and override defaults defined in config is to pass 'variant' to liquid tag:
+```liquid
+{% heroicon bell variant: "mini" %}
+```
+
+It's also possible to provide classes to the icon:
+```liquid
+{% heroicon bell class: "text-red-500" %}
+```
+
+Any other attributes will be passed to the SVG tag as well. As example:
+
+```liquid
+{% heroicon bell class: "text-red-500" aria-hidden: true height:32 aria-label:hi %}
+```
+## Configuration
+Besides variants, it's also possible to define default classes for each variant. Here is a recommended default configuration for `_config.yml`:
 
 ```ruby
 heroicons:
@@ -38,17 +65,10 @@ heroicons:
   }
 ```
 
-And then you can use:
+This default class will be applied to every icon. You can disable this on a per-icon basis by passing `disable_default_class: true`.
 
 ```liquid
-{% heroicon bell class:"right left" %}
-```
-
-Another way to provide variant would be like so:
-```liquid
-{% heroicon solid/bell class:"right left"%}
-# or
-{% heroicon bell variant: "solid" class:"right left"%}
+{% heroicon bell disable_default_class: true %}
 ```
 
 ## Development

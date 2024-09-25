@@ -1,5 +1,8 @@
 # Jekyll-Heroicons
 
+## 0.4.0
+- Add default variant as solid.
+- Adding "disable_default_class" attribute to a tag, to avoid adding default classes to the icon.
 ## 0.3.1
 - Fix Site.configuration retrieval.
 ## 0.3.0
