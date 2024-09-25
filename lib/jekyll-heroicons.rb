@@ -59,12 +59,12 @@ module Jekyll
     end
 
     def variant(markup)
-      if (match = markup.split("/")).length > 1
-        match.first
-      elsif @options.key?(:variant)
+      if @options.key?(:variant)
         @options[:variant]
-      else
+      elsif config["variant"]
         config["variant"]
+      else
+        'solid'
       end
     end
 

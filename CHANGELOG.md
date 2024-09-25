@@ -1,5 +1,8 @@
 # Jekyll-Heroicons
 
+## 0.4.0
+- Add default variant as solid.
+
 ## 0.3.1
 - Fix Site.configuration retrieval.
 ## 0.3.0

@@ -8,12 +8,12 @@ class JekyllHeroiconsTest < Minitest::Test
   end
 
   def test_render
-    output = render("{% heroicon solid/arrow-up %}")
-    expected_content = File.read(File.expand_path("../icons/solid/arrow-up.svg", __dir__))
+    output = render("{% heroicon arrow-up variant:outline  %}")
+    expected_content = File.read(File.expand_path("../icons/outline/arrow-up.svg", __dir__))
 
     assert_equal append_default_classes(expected_content), output
 
-    output = render("{% heroicon outline/arrow-down %}")
+    output = render("{% heroicon arrow-down variant: outline %}")
     expected_content = File.read(File.expand_path("../icons/outline/arrow-down.svg", __dir__))
 
     assert_equal append_default_classes(expected_content), output
@@ -34,7 +34,7 @@ class JekyllHeroiconsTest < Minitest::Test
   end
 
   def test_parses_tag_options
-    output = render('{% heroicon solid/arrow-up height:32 class:"left right" aria-label:hi%}')
+    output = render('{% heroicon arrow-up variant:"solid" height:32 class:"left right" aria-label:hi%}')
 
     assert_match(/height="32"/, output)
     assert_match(/class="left right/, output)
