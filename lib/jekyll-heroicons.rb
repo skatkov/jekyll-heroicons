@@ -64,7 +64,7 @@ module Jekyll
       elsif config["variant"]
         config["variant"]
       else
-        'solid'
+        "solid"
       end
     end
 
