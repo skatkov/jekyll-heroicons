@@ -10,6 +10,8 @@ This gem has no official affiliation with Tailwind CSS or the Heroicons team. Ch
 
 This is heavily inspired by https://github.com/jclusso/heroicons
 
+If you are looking to build a Jekyll website with Tailwind and no-build, take a look at [Jekyll CLI Template](https://github.com/skatkov/jekyll-tailwind-cli-template) that contains already this gem.
+
 ## Installation
 
 1. Add this to `Gemfile`:
