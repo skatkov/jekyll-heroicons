@@ -13,6 +13,9 @@ module Jekyll
       File.dirname(__dir__)
     end
 
+    # In case no variant is specified, use solid as default
+    DEFAULT_VARIANT = "solid"
+
     # Syntax for the heroicon symbol
     SYNTAX = /\A(#{Liquid::VariableSignature}+)/
 
@@ -44,7 +47,7 @@ module Jekyll
     private
 
     def config
-      @config ||= begin
+      @@config ||= begin
         Jekyll.configuration.dig("heroicons")
       rescue NoMethodError
         {}
@@ -58,13 +61,14 @@ module Jekyll
       prepend_default_classes
     end
 
+    # This method checks if heroicons liquid tag has a variant specified. If not, it check default variant in the config file. If both of those are not defined, it falls back to the default variant.
     def variant(markup)
       if @options.key?(:variant)
         @options[:variant]
       elsif config["variant"]
         config["variant"]
       else
-        "solid"
+        DEFAULT_VARIANT
       end
     end
 

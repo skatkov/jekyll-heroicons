@@ -1,5 +1,9 @@
 # Jekyll-Heroicons
 
+## 0.4.1
+- Don't reload configuration on every change
+- Improve comments and code around picking default variants.
+
 ## 0.4.0
 - Add default variant as solid.
 - Adding "disable_default_class" attribute to a tag, to avoid adding default classes to the icon.
