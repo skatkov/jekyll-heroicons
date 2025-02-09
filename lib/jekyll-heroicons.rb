@@ -63,13 +63,9 @@ module Jekyll
 
     # This method checks if heroicons liquid tag has a variant specified. If not, it check default variant in the config file. If both of those are not defined, it falls back to the default variant.
     def variant(markup)
-      if @options.key?(:variant)
-        @options[:variant]
-      elsif config["variant"]
-        config["variant"]
-      else
-        DEFAULT_VARIANT
-      end
+      @options[:variant] || config["variant"] || DEFAULT_VARIANT
+    rescue
+      DEFAULT_VARIANT
     end
 
     def prepend_default_classes
