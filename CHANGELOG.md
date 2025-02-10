@@ -1,9 +1,11 @@
 # Jekyll-Heroicons
 
-## Unreleased
-- Simplified "variant" method.
+## 0.4.2
+### Fixed
+- "variant" method will not error out if configuration is missing, will use DEFAULT_VARIANT instead.
 
 ## 0.4.1
+### Changed
 - Don't reload configuration on every change
 - Improve comments and code around picking default variants.
 
