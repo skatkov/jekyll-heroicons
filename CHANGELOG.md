@@ -1,5 +1,8 @@
 # Jekyll-Heroicons
 
+## Unreleased
+- Simplified "variant" method.
+
 ## 0.4.1
 - Don't reload configuration on every change
 - Improve comments and code around picking default variants.
